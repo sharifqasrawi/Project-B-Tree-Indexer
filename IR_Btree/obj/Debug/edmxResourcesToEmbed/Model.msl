@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="databaseModelStoreContainer" CdmEntityContainer="dbEntities">
+    <EntitySetMapping Name="Docs">
+      <EntityTypeMapping TypeName="databaseModel.Doc">
+        <MappingFragment StoreEntitySet="Docs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="File" ColumnName="File" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocsWords1">
+      <EntityTypeMapping TypeName="databaseModel.DocsWords">
+        <MappingFragment StoreEntitySet="DocsWords">
+          <ScalarProperty Name="DocId" ColumnName="DocId" />
+          <ScalarProperty Name="WordId" ColumnName="WordId" />
+          <ScalarProperty Name="Locations" ColumnName="Locations" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Words">
+      <EntityTypeMapping TypeName="databaseModel.Word">
+        <MappingFragment StoreEntitySet="Words">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Word1" ColumnName="Word" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

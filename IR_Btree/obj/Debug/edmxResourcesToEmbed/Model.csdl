@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="databaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Doc">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="File" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DocsWords" Relationship="Self.FK_DocsWords_Docs" FromRole="Docs" ToRole="DocsWords" />
+  </EntityType>
+  <EntityType Name="DocsWords">
+    <Key>
+      <PropertyRef Name="DocId" />
+      <PropertyRef Name="WordId" />
+    </Key>
+    <Property Name="DocId" Type="Int32" Nullable="false" />
+    <Property Name="WordId" Type="Int32" Nullable="false" />
+    <Property Name="Locations" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Doc" Relationship="Self.FK_DocsWords_Docs" FromRole="DocsWords" ToRole="Docs" />
+    <NavigationProperty Name="Word" Relationship="Self.FK_DocsWords_Words" FromRole="DocsWords" ToRole="Words" />
+  </EntityType>
+  <EntityType Name="Word">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Word1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DocsWords" Relationship="Self.FK_DocsWords_Words" FromRole="Words" ToRole="DocsWords" />
+  </EntityType>
+  <Association Name="FK_DocsWords_Docs">
+    <End Role="Docs" Type="Self.Doc" Multiplicity="1" />
+    <End Role="DocsWords" Type="databaseModel.DocsWords" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Docs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocsWords">
+        <PropertyRef Name="DocId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DocsWords_Words">
+    <End Role="Words" Type="Self.Word" Multiplicity="1" />
+    <End Role="DocsWords" Type="databaseModel.DocsWords" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Words">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocsWords">
+        <PropertyRef Name="WordId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Docs" EntityType="Self.Doc" />
+    <EntitySet Name="DocsWords1" EntityType="databaseModel.DocsWords" />
+    <EntitySet Name="Words" EntityType="Self.Word" />
+    <AssociationSet Name="FK_DocsWords_Docs" Association="Self.FK_DocsWords_Docs">
+      <End Role="Docs" EntitySet="Docs" />
+      <End Role="DocsWords" EntitySet="DocsWords1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DocsWords_Words" Association="Self.FK_DocsWords_Words">
+      <End Role="Words" EntitySet="Words" />
+      <End Role="DocsWords" EntitySet="DocsWords1" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
